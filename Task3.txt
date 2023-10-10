@@ -1,0 +1,69 @@
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker run -it -d --name node_first -v /var/first/data node:18.18
+5565a112df2dec668dddddb44735df23043bfe2d8c246e04bee64a624cdfc390
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker run -it -d --name node_second -v /var/second/data node:18.18
+e6090d486dc3efd84b9a7640e588b009280acc41da3d567e2b3657740f67a0ae
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker exec node_first touch var/first/data/test1.txt
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker exec node_first touch var/first/data/test2.txt
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker exec node_second touch var/second/data/test3.txt
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker exec -it node_second bash
+root@e6090d486dc3:/# ls
+bin  boot  dev  etc  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+root@e6090d486dc3:/# cd var
+
+root@e6090d486dc3:/var# cd second
+
+root@e6090d486dc3:/var/second# cd data
+
+root@e6090d486dc3:/var/second/data# echo "Has it really happenned?" >> /test3.txt
+
+root@e6090d486dc3:/var/second/data# ls
+test3.txt
+
+root@e6090d486dc3:/var/second/data# cat /test3.txt
+Has it really happenned?
+
+root@e6090d486dc3:/var/second/data# exit
+exit
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker exec -it node_first bash 
+root@5565a112df2d:/# cd var
+root@5565a112df2d:/var# cd first
+root@5565a112df2d:/var/first# cd data
+root@5565a112df2d:/var/first/data# ls
+test1.txt  test2.txt
+
+root@5565a112df2d:/var/first/data# exit
+exit
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker stop node_first
+node_first
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker stop node_second
+node_second
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rm node_first
+node_first
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rm node_second
+node_second
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+node          latest    7828fdf71577   10 days ago    1.1GB
+node          18.18     3679794afba7   2 weeks ago    1.09GB
+hello-world   latest    9c7a54a9a43c   5 months ago   13.3kB
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rmi 3679794afba7 
+Error response from daemon: conflict: unable to delete 3679794afba7 (must be forced) - image is being used by stopped container 64ac22d63f98
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rmi -f 3679794afba7 
+Untagged: node:18.18
+Untagged: node@sha256:ee0a21d64211d92d4340b225c556e9ef1a8bce1d5b03b49f5f07bf1dbbaa5626
+Deleted: sha256:3679794afba730f28a2f068233521ca3628d6a480ad8ac88fcd25f40948e765a
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> 

@@ -1,0 +1,100 @@
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker run -it --rm busybox
+Unable to find image 'busybox:latest' locally
+latest: Pulling from library/busybox
+3f4d90098f5b: Pull complete
+Digest: sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+Status: Downloaded newer image for busybox:latest
+/ # 
+
+Затем, честно напишу, я закрывал терминал, чтобы запустить Docker, потому что не понял, как выйти из /#
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS         PORTS     NAMES
+eeac6eac4583   busybox   "sh"      2 minutes ago   Up 2 minutes             elated_goldstine
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker run -it --name pinger busybox ping -c 7 netology.ru
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=53.430 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.903 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=64.100 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=55.701 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=56.971 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=61.481 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=66.729 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 53.430/59.616/66.729 ms
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                
+      PORTS     NAMES
+24e69298f300   busybox   "ping -c 7 netology.…"   31 seconds ago   Exited (0) 24 seconds ago             pinger
+eeac6eac4583   busybox   "sh"                     3 minutes ago    Up 3 minutes          
+                elated_goldstine
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker logs pinger
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=53.430 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.903 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=64.100 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=55.701 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=56.971 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=61.481 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=66.729 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 53.430/59.616/66.729 ms
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker start pinger
+pinger
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS            
+         PORTS     NAMES
+24e69298f300   busybox   "ping -c 7 netology.…"   About a minute ago   Exited (0) 5 seconds ago             pinger
+eeac6eac4583   busybox   "sh"                     4 minutes ago        Up 4 minutes                         elated_goldstine
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker logs pinger
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=53.430 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=58.903 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=64.100 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=55.701 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=56.971 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=61.481 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=66.729 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 53.430/59.616/66.729 ms
+PING netology.ru (188.114.99.224): 56 data bytes
+64 bytes from 188.114.99.224: seq=0 ttl=63 time=69.606 ms
+64 bytes from 188.114.99.224: seq=1 ttl=63 time=67.077 ms
+64 bytes from 188.114.99.224: seq=2 ttl=63 time=67.318 ms
+64 bytes from 188.114.99.224: seq=3 ttl=63 time=66.512 ms
+64 bytes from 188.114.99.224: seq=4 ttl=63 time=63.463 ms
+64 bytes from 188.114.99.224: seq=5 ttl=63 time=66.895 ms
+64 bytes from 188.114.99.224: seq=6 ttl=63 time=52.404 ms
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 52.404/64.753/69.606 ms
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rm -f pinger
+pinger
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS         PORTS     NAMES
+eeac6eac4583   busybox   "sh"      8 minutes ago   Up 8 minutes             elated_goldstine
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker stop eeac6eac4583
+eeac6eac4583
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79Deleted: sha256:a416a98b71e224a31ee99cff8e16063554498227d2b696152a9c3e0aa65e5824
+Deleted: sha256:3d24ee258efc3bfe4066a1a9fb83febf6dc0b1548dfe896161533668281c9f4f
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6>
+

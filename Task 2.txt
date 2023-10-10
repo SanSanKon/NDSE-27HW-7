@@ -1,0 +1,54 @@
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker pull node
+Using default tag: latest
+latest: Pulling from library/node
+167b8a53ca45: Pull complete
+b47a222d28fa: Pull complete
+debce5f9f3a9: Pull complete
+1d7ca7cd2e06: Pull complete
+94c7791033e8: Pull complete
+c72c41e7648d: Pull complete
+24b3fec6157f: Pull complete
+ba7d01e69714: Pull complete
+Digest: sha256:6b3f9aa7eefa8d4c93d43914e78aa2bfea9a12808b0059e5da78854dfa8b8768
+Status: Downloaded newer image for node:latest
+docker.io/library/node:latest
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview node
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker run -it --name mynode -e NAME=Aleksandr -e SURNAME=Konopatskii node:18.18 
+Welcome to Node.js v18.18.0.
+Type ".help" for more information.
+> console.log(`Hello ${process.env.NAME} ${process.env.SURNAME}`)
+Hello Aleksandr Konopatskii
+undefined
+
+> console.log(`Привет,  ${process.env.NAME} ${process.env.SURNAME}`)
+Привет,  Aleksandr Konopatskii
+undefined
+>
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker ps -a
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS                      PORTS     NAMES
+64ac22d63f98   node:18.18   "docker-entrypoint.s…"   7 minutes ago    Exited (0) 5 minutes ago              mynode
+360f31d3e973   node:18.18   "docker-entrypoint.s…"   11 minutes ago   Exited (0) 10 minutes ago             blissful_hodgkin
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker stop mynode
+mynode
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker stop blissful_hodgkin
+blissful_hodgkin
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6> docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+node         latest    7828fdf71577   9 days ago    1.1GB
+node         18.18     3679794afba7   2 weeks ago   1.09GB
+
+PS C:\Users\User\Desktop\ЮРО\Новая папка\hw6>  docker rmi $(docker images -a -q)      
+Untagged: node:latest
+Untagged: node@sha256:6b3f9aa7eefa8d4c93d43914e78aa2bfea9a12808b0059e5da78854dfa8b8768
+Deleted: sha256:7828fdf71577e0d266f905d26d27e46ac418ac2fa8fc05a78ad01c8811b7abb6
+Deleted: sha256:1c774cfebfbe089b7a45cf66d2458f1765cdbb0936bc9d684948a5de40b3943b
+Deleted: sha256:cd69e19a137537a7028333cc37b2703aadfe39f240e91c565c0b200eb055959f
+Deleted: sha256:3a95aa34bea45da0df9eb735952d3e2107f6bae20947d767e1c913913da80d9d
+
